@@ -50,6 +50,7 @@
     <Compile Include="LampadaLed.cs" />
     <Compile Include="LampadaNeon.cs" />
     <Compile Include="Objeto.cs" />
+    <Compile Include="Produto.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
