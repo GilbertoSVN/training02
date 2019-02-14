@@ -10,7 +10,7 @@ namespace GAtec.Agro.App
     {
         private bool _aceso;
 
-        public virtual decimal Preco { get; private set; }
+        public virtual decimal Preco { get; set; }
 
 
 

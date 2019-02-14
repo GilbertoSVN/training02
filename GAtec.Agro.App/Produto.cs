@@ -11,6 +11,11 @@ namespace GAtec.Agro.App
         public int Id { get; set; }
         public string Nome { get; set; }
         public decimal Preco { get; set; }
+
+        public override string ToString()
+        {
+            return Id + " " + Nome + " " + Preco.ToString("C2");
+        }
     }
 
 

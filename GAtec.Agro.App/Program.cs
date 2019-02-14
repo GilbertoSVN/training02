@@ -2,6 +2,11 @@
 using System.Text;
 using System.Globalization;
 using System.Threading;
+using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
+
+using System.IO;
 
 namespace GAtec.Agro.App
 {
@@ -15,8 +20,7 @@ namespace GAtec.Agro.App
         {
             Console.WriteLine(o.ToString());
         }
-
-
+        
         static void ImprimirPreco(Lampada lomp)
         {
             Console.WriteLine(lomp.Preco.ToString("C2"));
@@ -410,12 +414,442 @@ namespace GAtec.Agro.App
 
         // -----------------------------------------------------------------------------------
 
+        public static void ExemploDeRepeticao()
+        {
+            var random = new Random();
+
+            int[] valores = new int[10];
+            
+            for (int i = 0; i < valores.Length; i++)
+            {
+                valores[i] = random.Next(1, 100);
+            }
+
+            Console.WriteLine("----------------------------");
+
+            int contador = 0;
+            while (contador < valores.Length)
+            {
+                Console.WriteLine(valores[contador]);
+                contador++;
+            }
+
+            Console.WriteLine("----------------------------");
+
+            contador = 0;
+            do
+            {
+                Console.WriteLine(valores[contador]);
+                contador++;
+
+            } while (contador < valores.Length);
+                        
+            Console.WriteLine("----------------------------");
+
+            for (int i = 0; i < valores.Length; i++)
+            {
+                var valor = valores[i];
+
+                Console.WriteLine(valor);
+            }
+
+            foreach (var valor in valores)
+                Console.WriteLine(valor);
+        }
+
+        public static void ExemploColecoes()
+        {
+
+            ArrayList list = new ArrayList();
+
+            list.Add("GAtec");
+            list.Add(123);
+            list.Add(50m);
+            list.Add(true);
+
+            foreach (var item in list)
+            {
+                Console.WriteLine("{0}: {1}", item.GetType().Name, item);
+            }
+
+            ArrayList precos = new ArrayList();
+
+            precos.Add(12.50m);
+            precos.Add(20.45m);
+            precos.Add(150m);
+
+            for (int i = 0; i < precos.Count; i++)
+            {
+                var preco = (decimal) precos[i];
+
+                precos[i] = preco + (preco * 0.1m);
+            }
+
+            foreach (var preco in precos)
+            {
+                Console.WriteLine("{0:c2}", preco);
+            }
+
+            var d = new Data();
+
+            var dados = d.GetEnumerator();
+
+            foreach (var n in d)
+            {
+                Console.WriteLine(n);
+            }
+
+
+        }
+        
+
+        class Data : IEnumerable
+        {
+            public IEnumerator GetEnumerator()
+            {
+                yield return 11;
+
+
+                yield return false;
+
+                yield break;
+
+
+                yield return 33;
+
+
+                yield return 44;
+            }
+        }
+
+
+        static void TrocarValor<T>(T v1, T v2)
+        {
+            T aux = v1;
+            v1 = v2;
+            v2 = aux;
+        }
+
+
+        public static void ExemploGenerics()
+        {
+
+
+            var p1 = new Produto() { Id = 1 };
+            var p2 = new Produto() { Id = 2 };
+
+            TrocarValor<Produto>(p1, p2);
+
+            Console.WriteLine(p2.Id);
+
+            var repo = new Repositorio<Produto>();
+
+            repo.Adicionar(new Produto()
+            {
+                Id = 1,
+                Nome = "Simple Farm",
+                Preco = 1000m
+            });
+
+            repo.Adicionar(new Produto()
+            {
+                Id = 2,
+                Nome = "WMS",
+                Preco = 999m
+            });
+
+            repo.Adicionar(new Produto()
+            {
+                Id = 3,
+                Nome = "Simple Viewer",
+                Preco = 1001m
+            });
+
+            foreach (var item in repo.Obter())
+            {
+                Console.WriteLine(item);
+            }
+
+
+        }
+
+        public static void ExemploColecoesGenerics()
+        {
+            List<Produto> produtos = new List<Produto>();
+
+            produtos.Add(new Produto()
+            {
+                Id = 1,
+                Nome = "Simple Farm",
+                Preco = 1000m
+            });
+
+            produtos.Add(new Produto()
+            {
+                Id = 2,
+                Nome = "WMS",
+                Preco = 999m
+            });
+
+            produtos.Add(new Produto()
+            {
+                Id = 3,
+                Nome = "Simple Viewer",
+                Preco = 1001m
+            });
+
+            foreach (var p in produtos)
+            {
+                Console.WriteLine(p);
+            }
+
+
+            List<decimal> precos = new List<decimal>();
+
+            precos.Add(100m);
+            precos.Add(140m);
+            precos.Add(150m);
+            precos.Add(180m);
+
+            for (int i = 0; i < precos.Count; i++)
+            {
+                precos[i] = precos[i] + (precos[i] * 0.5m);
+            }
+
+            foreach(var p in precos)
+            {
+                Console.WriteLine(p);
+            }
+
+
+           
+
+        }
+
+        class JsonData
+        {
+            public string nome { get; set; }
+
+            public int idade { get; set; }
+
+            public decimal valor { get; set; }
+            
+            public bool ligado { get; set; }
+        }
+
+
+
+        public static void DeserializarJson()
+        {
+            
+            var json = "{ nome: 'GAtec', idade: 17, valor: 10000.45 }";
+            var jsonList = "[{ nome: 'GAtec', idade: 17, valor: 10000.45, ligado: true }, { nome: 'Simple Farm', idade: 3, valor: 500.45, ligado: false }]";
+
+            var data = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonData>(json);
+            
+
+            //Console.WriteLine(data.nome);
+            //Console.WriteLine(data.idade);
+            //Console.WriteLine(data.ligado);
+
+            var dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+
+            foreach (var chave in dic)
+            {
+               // Console.WriteLine(chave.Key + " " + chave.Value);
+            }
+
+            int k = default(int);
+
+
+            var dicList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(jsonList);
+
+
+            foreach(var d in dicList)
+            {
+                Console.WriteLine("-------------------------------");
+                foreach (var chave in d)
+                {
+                    Console.WriteLine(chave.Key + " " + chave.Value);
+                }
+
+            }
+
+            var prod = new Produto()
+            {
+                Id = 2,
+                Nome = "WMS",
+                Preco = 999m
+            };
+
+            var jsonProd = Newtonsoft.Json.JsonConvert.SerializeObject(prod);
+
+
+
+
+
+
+            string complexJson = "{ produto: {Id: 1, Nome: 'SPF', Preco: 123.45} }";
+
+            var item = Newtonsoft.Json.JsonConvert.DeserializeObject<Item>(complexJson);
+
+
+            
+
+
+
+
+
+            Console.WriteLine(jsonProd);
+        }
+
+        class Item
+        {
+            public Produto produto { get; set; }
+
+            public Lampada lampada { get; set; }
+        }
+
+
+        public static void ExemploExtensionMethods()
+        {
+
+
+            decimal valor = 45.50m;
+
+            var p = new Produto() { Preco = 20.46m };
+
+            var br = valor.FormatCurrencyBR();
+            var us = valor.FormatCurrencyUS();
+            var fr = valor.FormatCurrency("cn-CN");
+
+            Console.WriteLine(br);
+            Console.WriteLine(us);
+            Console.WriteLine(fr);
+
+            p.Print();
+
+            Produto prod = null;
+
+            "Arnaldo Cesar Coelho".Print();
+
+            1323.Print();
+
+            true.Print();
+
+
+            valor.Print();
+
+            List<Produto> produtos = new List<Produto>();
+
+
+        }
+
+
+        public static void ExemploTipoAnulaveis()
+        {
+
+            int? inteiroAnulavel = 0;
+            int? inteiroNull;
+
+            DateTime? dataAnulavel = DateTime.Now;
+            
+            double? d = 100.10;
+            
+            dataAnulavel = null;
+
+            if (!inteiroAnulavel.HasValue)
+            {
+
+            }
+
+            var i = default(Produto);
+        }
+
+
+        public static void ExemploSistemaDeArquivos()
+        {
+            string pasta = @"C:\temp\BancoInformix";
+
+            if (!Directory.Exists(pasta))
+            {
+                Directory.CreateDirectory(pasta);
+            }
+            
+            var fileInfo = new FileInfo(Path.Combine(pasta, "projeto.log"));
+            
+            if (!fileInfo.Exists)
+            {
+                fileInfo.Create();
+            }
+            
+            // fileInfo.Refresh();
+            // fileInfo.CopyTo(pasta + "\\projeto2.log");
+
+            var diretorios = Directory.GetDirectories(@"C:\temp", "*Informix*", SearchOption.AllDirectories);
+            
+            foreach (var dir in diretorios)
+            {
+                var dirInfo = new DirectoryInfo(dir);
+                
+                //Console.WriteLine(dir);
+
+                var arquivos = Directory.GetFiles(dir, "*.log");
+
+                foreach (var arquivo in arquivos)
+                {
+                    Console.WriteLine(arquivo);
+
+                    if (File.Exists(arquivo))
+                    {
+                        //var conteudo = File.ReadAllText(arquivo);
+
+                        //conteudo.Print();
+
+                        string log = string.Format("\n{0} - {1}", DateTime.Now, "Operacao do sistema do gibao");
+
+                        FileStream arquivoStream = File.Open(arquivo, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+
+                        StreamWriter writer = new StreamWriter(arquivoStream);
+
+                        //arquivoStream.Seek(0, SeekOrigin.End);
+
+
+                        //var logEmBytes = Encoding.Default.GetBytes(log);
+
+                        //arquivoStream.Write(logEmBytes, 0, logEmBytes.Length);
+                        
+                        arquivoStream.Seek(0, SeekOrigin.End);
+
+                        writer.Write(log);
+
+                        writer.Flush();
+                        
+
+                        arquivoStream.Seek(0, SeekOrigin.Begin);
+
+                        StreamReader reader = new StreamReader(arquivoStream);
+
+                        var content = reader.ReadToEnd();
+
+                        Console.WriteLine(content);
+
+                    }
+                }
+
+                
+
+            }
+
+        }
+
+
         static void Main(string[] args)
         {
             // A implementação foi organizada em métodos com prefixo Exemplo.
             // Aqui você pode chamar um dos métodos de exemplo.
 
-            ExemplosDeEstruturasDoCSharp();
+            ExemploSistemaDeArquivos();
 
             // para a execução do console application e espera que uma tecla seja pressionada.
             Console.Read();

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="hibernate-configuration" type="NHibernate.Cfg.ConfigurationSectionHandler, NHibernate"/>
+  </configSections>
+  <hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
+    <session-factory>
+      <!-- SQL SERVER -->
+
+      <!--<property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
+      <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>-->
+      
+      <!-- ORACLE -->
+      <property name="connection.driver_class">NHibernate.Driver.OracleManagedDataClientDriver</property>
+      <property name="dialect">NHibernate.Dialect.Oracle10gDialect</property>
+      <!-- -->
+      <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
+      <property name="connection.connection_string_name">SimpleFarm</property>
+      <property name="query.substitutions">true 1, false 0, yes 'Y', no 'N'</property>
+      <property name="show_sql">true</property>
+      <property name="adonet.batch_size">500</property>
+      <property name="cache.use_query_cache">true</property>
+    </session-factory>
+  </hibernate-configuration>
+</configuration>
