@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAtec.Data", "GAtec.Data\GA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAtec.NHTest", "GAtec.NHTest\GAtec.NHTest.csproj", "{E73EBA39-C48C-4078-BEEC-76A22155B047}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NhSamples", "NhSamples\NhSamples.csproj", "{37B612CB-0889-4B48-BE78-CF02F78EDD59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E73EBA39-C48C-4078-BEEC-76A22155B047}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E73EBA39-C48C-4078-BEEC-76A22155B047}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E73EBA39-C48C-4078-BEEC-76A22155B047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37B612CB-0889-4B48-BE78-CF02F78EDD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B612CB-0889-4B48-BE78-CF02F78EDD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B612CB-0889-4B48-BE78-CF02F78EDD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B612CB-0889-4B48-BE78-CF02F78EDD59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
